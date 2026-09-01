@@ -141,15 +141,16 @@ export default function Admin() {
       setMessage('ADMIN AUTHENTICATION REQUIRED.')
       return
     }
+    const client = supabase
     setSaved(false)
     setMessage('SYNCING WITH SUPABASE...')
 
     const featureResults = await Promise.all(features.map(feature =>
-      supabase.from('site_features').update({ enabled: feature.enabled, sort_order: feature.sort_order, updated_at: new Date().toISOString() }).eq('id', feature.id)
+      client.from('site_features').update({ enabled: feature.enabled, sort_order: feature.sort_order, updated_at: new Date().toISOString() }).eq('id', feature.id)
     ))
     const featureError = featureResults.find(result => result.error)?.error
 
-    const { error: developerError } = await supabase.from('developer_profile').upsert({
+    const { error: developerError } = await client.from('developer_profile').upsert({
       id: true,
       name: developer.name,
       bio: developer.bio,
@@ -164,7 +165,7 @@ export default function Admin() {
       updated_at: new Date().toISOString(),
     })
 
-    const { error: brandingError } = await supabase.from('branding_settings').upsert({
+    const { error: brandingError } = await client.from('branding_settings').upsert({
       id: true,
       developer_logo_url: branding.developer_logo_url,
       official_logo_url: branding.official_logo_url,
