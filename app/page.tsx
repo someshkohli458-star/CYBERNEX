@@ -43,9 +43,9 @@ const fallback: Feature[] = [
 }))
 
 const featured = [
-  { name: 'MATRIX RAIN', icon: '▦', action: 'OPEN MATRIX', text: 'Animated terminal rain visualizer.' },
-  { name: 'CRACKED SCREEN', icon: '◈', action: 'OPEN SCREEN', text: 'Harmless cracked-display effect.' },
-  { name: 'WINDOWS XP DESKTOP', icon: '▣', action: 'LAUNCH DESKTOP', text: 'Retro desktop simulation environment.' },
+  { name: 'MATRIX RAIN', icon: '▦', action: 'OPEN MATRIX' },
+  { name: 'CRACKED SCREEN', icon: '◈', action: 'OPEN SCREEN' },
+  { name: 'WINDOWS XP DESKTOP', icon: '▣', action: 'LAUNCH DESKTOP' },
 ]
 
 export default function Home() {
@@ -53,7 +53,7 @@ export default function Home() {
   const [developer, setDeveloper] = useState<Developer>({
     name: 'Somesh Koli', bio: 'Cybersecurity learner & developer',
     instagram_primary: '@offx.somesh', instagram_secondary: '@developer.somesh',
-    email: 'someshkoli442288@gmail.com', tagline: 'DIGITAL SIMULATION • PRANK HUB • CYBER EXPERIEMENTS',
+    email: 'someshkoli442288@gmail.com', tagline: 'DIGITAL SIMULATION • PRANK HUB • CYBER EXPERIENCES',
   })
   const [branding, setBranding] = useState<Branding>({ official_logo_url: null, developer_logo_url: null })
   const [active, setActive] = useState<Feature | null>(null)
@@ -83,7 +83,7 @@ export default function Home() {
     <header className="cyberNav">
       <div className="logoLockup">
         {branding.official_logo_url ? <img src={branding.official_logo_url} alt="CYBERNEX" /> : <span className="logoGlyph">☠</span>}
-        <div><strong>CYBERNEX</strong><small>DIGITAL SIMULATION • PRANK HUB • CYBER EXPERIEMENTS</small></div>
+        <div><strong>CYBERNEX</strong><small>DIGITAL SIMULATION • PRANK HUB • CYBER EXPERIENCES</small></div>
       </div>
       <nav><a className="active" href="#home">Home</a><a href="#tools">Tools</a><button onClick={() => setDesktop(true)}>Desktop</button><a href="#about">About</a><a href="#contact">Contact</a><button className="searchBtn" onClick={() => setToolHub(true)}>⌕</button></nav>
       <div className="navUser"><span>{branding.developer_logo_url ? <img src={branding.developer_logo_url} alt="Developer" /> : '◉'}</span><div><b>{developer.name}</b><small>Online</small></div></div>
@@ -108,7 +108,7 @@ export default function Home() {
       <div className="mainColumn">
         <section id="tools" className="toolPanel">
           <div className="panelTitle"><span>CORE TERMINAL TOOLS</span><small>SIMULATION ONLY</small></div>
-          <div className="toolGrid">{features.map(f => <button className="toolCard" key={f.id} onClick={() => setActive(f)}><div className="toolIcon">{f.icon}</div><strong>{f.name}</strong><span>→</span></button>)}</div>
+          <div className="toolGrid">{features.map(f => f.route ? <Link className="toolCard" href={f.route} key={f.id}><div className="toolIcon">{f.icon}</div><strong>{f.name}</strong><span>→</span></Link> : <button className="toolCard" key={f.id} onClick={() => setActive(f)}><div className="toolIcon">{f.icon}</div><strong>{f.name}</strong><span>→</span></button>)}</div>
         </section>
 
         <section className="toolPanel featuredPanel">
@@ -127,17 +127,17 @@ export default function Home() {
       <div className="fakeWindow browser"><header>🌐 Welcome to CYBERNEX! <i>− □ ×</i></header><div className="fakeToolbar">File &nbsp; Edit &nbsp; View &nbsp; Favorites &nbsp; Tools &nbsp; Help</div><div className="desktopIcons">{['Hacker','Screenshot','Virus','FBI Lock','iOS','Windows XP','Windows 7','Windows 10','Prank 4 Pets','BIOS','3D Pipes','Matrix Rain','TV Noise','Cracked Screen','Jurassic Park'].map(x => <span key={x}>▣<small>{x}</small></span>)}</div></div>
       <div className="fakeWindow console"><header>CYBERNEX - Program Console <i>− □ ×</i></header><pre>{`CYBERNEX Console v2.0.1\n\nInitializing modules... [OK]\nLoading system... [OK]\nConnecting to virtual network... [OK]\nRunning diagnostics... [OK]\n\ncybernex> help\n\nAvailable commands:\nsystem    - Show system info\nnetwork   - Network simulation\nscan      - Run fake scan\nclear     - Clear console\nexit      - Close console\n\ncybernex> scan\nScanning... [SIMULATION] 94%\nNo real threats. (Simulation Mode)\ncybernex> _`}</pre></div>
       <div className="fakeWindow map"><header>CYBERNEX - Headquarter Surveillance <i>− □ ×</i></header><div className="fakeMap">WORLD VIEW<br/><span>●</span><span>●</span><span>●</span><span>●</span><small>Tracking... (Simulation)</small></div></div>
-      <div className="fakeWindow nuclear"><header>Nuclear Plant Control <i>− □ ×</i></header><div className="metric"><b>487°C</b><small>REACTOR TEMP</small><b>12.4 bar</b><small>PRESSURE</small><strong>78%</strong><small>POWER</small></div><button>EMERGENCY STOP</button></div>
-      <div className="fakeWindow miner"><header>Bitcoin Miner <i>− □ ×</i></header><div className="hash">128.4 TH/s</div><div className="chart">▁▂▃▂▅▃▆▅▇▆▉</div><button onClick={() => setActive(features.find(f => f.name === 'BITCOIN MINER') ?? features[0] ?? null)}>START MINING</button></div>
-      <div className="fakeWindow interpol"><header>Interpol Database <i>− □ ×</i></header><div className="personCard"><span>◉</span><div><b>John Doe</b><small>Alias: Unknown<br/>Status: Clear<br/>Country: Simulated<br/>Risk: Low</small></div><strong>INTERPOL</strong></div></div>
+      <div className="fakeWindow nuclear"><header>Nuclear Plant Control <i>− □ ×</i></header><div className="metric"><b>487°C</b><small>REACTOR TEMP</small><b>12.4 bar</b><small>PRESSURE</small><strong>78%</strong><small>POWER</small></div><Link className="fakeAction" href="/simulations/nuclear">OPEN CONTROL</Link></div>
+      <div className="fakeWindow miner"><header>Bitcoin Miner <i>− □ ×</i></header><div className="hash">128.4 TH/s</div><div className="chart">▁▂▃▂▅▃▆▅▇▆▉</div><Link className="fakeAction" href="/simulations/miner">OPEN MINER</Link></div>
+      <div className="fakeWindow interpol"><header>Interpol Database <i>− □ ×</i></header><div className="personCard"><span>◉</span><div><b>John Doe</b><small>Alias: Unknown<br/>Status: Clear<br/>Country: Simulated<br/>Risk: Low</small></div><strong>INTERPOL</strong></div><Link className="fakeAction" href="/simulations/interpol">OPEN DATABASE</Link></div>
     </section>
 
     <section id="contact" className="bottomBar"><div>🛡️ <b>100% Safe</b><span>Simulation Only</span></div><div>📱 <b>Mobile + Desktop</b><span>Works Everywhere</span></div><div>🎮 <b>Interactive</b><span>Safe sandbox</span></div><div className="devMini">Developed by <b>{developer.name}</b> · {developer.instagram_primary}</div></section>
 
     <footer className="cyberFooter"><span>© 2026 CYBERNEX — DIGITAL SIMULATION LAB</span><div><Link href="/profile">Profile</Link><Link href="/settings">Settings</Link><Link href="/developer">Developer</Link><Link href="/admin">Admin</Link></div></footer>
 
-    {active && <div className="modalBackdrop" onClick={() => setActive(null)}><div className="simulationModal" onClick={e => e.stopPropagation()}><div className="fakeWindow modalWindow"><header>{active.icon} CYBERNEX - {active.name}<i>×</i></header><div className="modalBody"><div className="lockBig">{active.icon}</div><h2>{active.name}</h2><p>{active.description}</p><div className="terminal">{`> MODULE: ${active.name}\n> ENVIRONMENT: SANDBOX\n> REAL DEVICE ACCESS: DISABLED\n> CREDENTIALS: NOT COLLECTED\n> STATUS: READY\n\nThis is a controlled educational simulation.\nNo real-world target is contacted.`}</div><button className="neonBtn" onClick={() => setActive(null)}>START SIMULATION</button></div></div></div></div>}
-    {toolHub && <div className="modalBackdrop" onClick={() => setToolHub(false)}><div className="toolHubModal" onClick={e => e.stopPropagation()}><div className="fakeWindow modalWindow"><header>CYBERNEX - Tool Hub <i onClick={() => setToolHub(false)}>×</i></header><div className="hubGrid">{features.map(f => <button key={f.id} onClick={() => {setToolHub(false);setActive(f)}}><span>{f.icon}</span><b>{f.name}</b></button>)}</div></div></div></div>}
-    {desktop && <div className="desktopOverlay"><div className="desktopTop">CYBERNEX DESKTOP <span>◉ ONLINE</span><button onClick={() => setDesktop(false)}>EXIT DESKTOP ×</button></div><div className="desktopCanvas"><div className="desktopConsole"><b>CYBERNEX TERMINAL</b><pre>{`root@cybernex:~$ system\nSYSTEM      CYBERNEX\nMODE        SAFE SIMULATION\nFIREWALL    ACTIVE\nNETWORK     VIRTUAL\nSTATUS      READY\n\nroot@cybernex:~$ _`}</pre></div><div className="desktopShortcut" onClick={() => setToolHub(true)}>☠<b>Tool Hub</b></div><div className="desktopShortcut" onClick={() => setActive(features[0] ?? null)}>▣<b>Surveillance</b></div><div className="desktopShortcut" onClick={() => setActive(features.find(f => f.name === 'PASSWORD CRACKER') ?? features[0] ?? null)}>🔐<b>Password Lab</b></div></div><div className="desktopDock"><button onClick={() => setToolHub(true)}>🚀 Tools</button><button onClick={() => setDesktop(false)}>▣ Desktop</button><button onClick={() => setActive(features[0] ?? null)}>⌨ Console</button><button>◉ Privacy</button></div></div>}
+    {active && <div className="modalBackdrop" onClick={() => setActive(null)}><div className="simulationModal" onClick={e => e.stopPropagation()}><div className="fakeWindow modalWindow"><header>{active.icon} CYBERNEX - {active.name}<i onClick={() => setActive(null)}>×</i></header><div className="modalBody"><div className="lockBig">{active.icon}</div><h2>{active.name}</h2><p>{active.description}</p><div className="terminal">{`> MODULE: ${active.name}\n> ENVIRONMENT: SANDBOX\n> REAL DEVICE ACCESS: DISABLED\n> CREDENTIALS: NOT COLLECTED\n> STATUS: READY\n\nThis is a controlled educational simulation.\nNo real-world target is contacted.`}</div>{active.route ? <Link className="neonBtn" href={active.route}>START SIMULATION</Link> : <button className="neonBtn" onClick={() => setActive(null)}>CLOSE</button>}</div></div></div></div>}
+    {toolHub && <div className="modalBackdrop" onClick={() => setToolHub(false)}><div className="toolHubModal" onClick={e => e.stopPropagation()}><div className="fakeWindow modalWindow"><header>CYBERNEX - Tool Hub <i onClick={() => setToolHub(false)}>×</i></header><div className="hubGrid">{features.map(f => f.route ? <Link className="hubItem" key={f.id} href={f.route} onClick={() => setToolHub(false)}><span>{f.icon}</span><b>{f.name}</b></Link> : <button key={f.id} onClick={() => {setToolHub(false);setActive(f)}}><span>{f.icon}</span><b>{f.name}</b></button>)}</div></div></div></div>}
+    {desktop && <div className="desktopOverlay"><div className="desktopTop">CYBERNEX DESKTOP <span>◉ ONLINE</span><button onClick={() => setDesktop(false)}>EXIT DESKTOP ×</button></div><div className="desktopCanvas"><div className="desktopConsole"><b>CYBERNEX TERMINAL</b><pre>{`root@cybernex:~$ system\nSYSTEM      CYBERNEX\nMODE        SAFE SIMULATION\nFIREWALL    ACTIVE\nNETWORK     VIRTUAL\nSTATUS      READY\n\nroot@cybernex:~$ _`}</pre></div><div className="desktopShortcut" onClick={() => setToolHub(true)}>☠<b>Tool Hub</b></div><Link className="desktopShortcut" href="/simulations/surveillance" onClick={() => setDesktop(false)}>▣<b>Surveillance</b></Link><Link className="desktopShortcut" href="/simulations/password" onClick={() => setDesktop(false)}>🔐<b>Password Lab</b></Link></div><div className="desktopDock"><button onClick={() => setToolHub(true)}>🚀 Tools</button><button onClick={() => setDesktop(false)}>▣ Desktop</button><Link href="/simulations/console" onClick={() => setDesktop(false)}>⌨ Console</Link><button>◉ Privacy</button></div></div>}
   </main>
 }
