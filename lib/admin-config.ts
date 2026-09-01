@@ -1,0 +1,2 @@
+export type AdminConfig = { siteName: string; officialLogoUrl: string; developerLogoUrl: string; developerName: string; developerBio: string; instagramPrimary: string; instagramSecondary: string; email: string }
+export const defaultAdminConfig: AdminConfig = { siteName:'CYBERNEX', officialLogoUrl:'', developerLogoUrl:'', developerName:'Somesh Koli', developerBio:'Cybersecurity learner & developer', instagramPrimary:'@offx.somesh', instagramSecondary:'@developer.somesh', email:'someshkoli442288@gmail.com' }
