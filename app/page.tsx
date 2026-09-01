@@ -1,1 +1,28 @@
-export default function Home(){return <main style={{minHeight:'100vh',background:'#050505',color:'#b7ff3c',fontFamily:'monospace',display:'grid',placeItems:'center',padding:24}}><section style={{maxWidth:900,width:'100%',border:'1px solid #29400f',padding:'48px 28px',textAlign:'center'}}><div style={{fontSize:12,letterSpacing:6,opacity:.7}}>SECURE CYBER LAB</div><h1 style={{fontSize:'clamp(42px,10vw,96px)',margin:'12px 0',letterSpacing:8}}>CYBERNEX</h1><p style={{color:'#ddd',maxWidth:620,margin:'0 auto 28px',lineHeight:1.7}}>Advanced cybersecurity learning and simulation platform.</p><div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}><a href="/admin" style={{border:'1px solid #b7ff3c',padding:'12px 20px',color:'#b7ff3c',textDecoration:'none'}}>ADMIN PANEL</a><a href="/developer" style={{border:'1px solid #29400f',padding:'12px 20px',color:'#ddd',textDecoration:'none'}}>DEVELOPER</a></div></section></main>}
+'use client'
+import {useState} from 'react'
+
+const features=[
+ ['📹','SECURITY CAMERA','Simulated camera investigation lab'],
+ ['💬','MESSENGER APP','Fake conversation analysis simulator'],
+ ['📶','WIFI NETWORK','Wireless security learning lab'],
+ ['📸','SOCIAL MEDIA','2FA security awareness demo'],
+ ['🖼️','PHONE GALLERY','Privacy and metadata simulator'],
+ ['🏛️','VAULT SYSTEM','Access-control training simulator'],
+ ['🛰️','SATELLITE FEED','Signal-analysis simulation'],
+ ['🕵️','SECRET DATABASE','Clearance and OSINT training lab'],
+]
+
+export default function Home(){
+ const [active,setActive]=useState<(typeof features)[number]|null>(null)
+ return <main className="shell">
+  <header className="topbar"><div className="brand">CYBERNEX</div><div className="status">● SYSTEM READY // v1.0.0</div></header>
+  <div className="container">
+   <section className="hero"><div className="eyebrow">[ SELECT YOUR SIMULATION ]</div><h1>CYBER TERMINAL</h1><p>Explore cinematic, controlled cybersecurity simulations designed for learning, demos and harmless pranks. No real device, account, camera or network is accessed.</p></section>
+   <div className="section-title">AVAILABLE MODULES</div>
+   <section className="grid">{features.map((f)=><button className="card" key={f[1]} onClick={()=>setActive(f)}><div className="icon">{f[0]}</div><div><h3>{f[1]}</h3><p>{f[2]}</p></div><span className="tag">SIM</span></button>)}</section>
+   <section className="panel"><h2>LEVEL UP YOUR OPERATOR PROFILE</h2><p>Track simulated activity, explore modules and customize the interface. All activity stays inside the CYBERNEX experience.</p><div className="buttons"><a className="btn" href="/developer">DEVELOPER</a><a className="btn secondary" href="/admin">ADMIN PANEL</a></div></section>
+   <footer className="footer"><span>CYBERNEX // EDUCATION + SIMULATION</span><span>Developed by Somesh Koli</span></footer>
+  </div>
+  {active&&<div className="modalBackdrop" onClick={()=>setActive(null)}><div className="modal" onClick={e=>e.stopPropagation()}><div className="section-title">{active[1]}</div><div className="terminal">{`> CYBERNEX SIMULATION INITIALIZED\n> Module: ${active[1]}\n> Environment: SANDBOX\n> Real-world access: DISABLED\n> Status: READY\n\nThis module is a visual/educational simulation only.`}</div><div className="buttons" style={{marginTop:14}}><button className="btn" onClick={()=>setActive(null)}>CLOSE</button></div></div></div>}
+ </main>
+}
